@@ -13,7 +13,7 @@ export class CountryService {
 
   constructor(private _http: HttpClient) { }
 
-  getAllCountry(): Observable<Country>{
-    return this._http.get(this.country_all_url);
+  getAllCountry(): Observable<Country[]>{
+    return this._http.get<Country[]>(this.country_all_url);
   }
 }
