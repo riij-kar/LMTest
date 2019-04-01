@@ -49,7 +49,7 @@ export class UserDetailDirective {
           var udhp = this.userDetail;
           if(udhp.hasOwnProperty('_id')){
 
-            this.http.post(this.userUploadUrl, formdata).subscribe(res => {
+            this.http.post(this.userUploadUrl, formdata).subscribe((res:any) => {
                 console.log(res);
                 this.userDetail.picture = res.imgURL;
             });

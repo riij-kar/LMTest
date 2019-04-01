@@ -51,7 +51,7 @@ export class UserDetailComponent implements OnInit {
     
     this.submitted = true;
     
-    var json_obj = {
+    let json_obj: any = {
       //'id' : this.user_id,
       'name': udfm.form.controls.name.value,
       'age': udfm.form.controls.age.value,

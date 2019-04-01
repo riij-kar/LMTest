@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 
 import {Observable} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { UserDetailInterface } from '../heroes/hero';
 
 @Component({
   selector: 'app-users',
@@ -11,9 +12,8 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 })
 export class UsersComponent implements OnInit { 
   users : any[];
-  public search: any;
 
-  search = (text: Observable<string>) =>
+  search = (text: Observable<any>) =>
     text.pipe(
       debounceTime(200),
       distinctUntilChanged(),
@@ -49,8 +49,8 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers(): void {
-    this.uservice.getusers().subscribe(response => this.users = response);
-  }
+    this.uservice.getusers().subscribe((response:UserDetailInterface[]) => this.users = response);
+  } 
 
   deleteUser (id) : void{
     console.log(id);

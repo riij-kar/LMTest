@@ -23,7 +23,7 @@ export class UserService {
   }
 
   getUserById(id): Observable<UserDetailInterface>{
-    return this.http.get(this.getUserDetails + id);
+    return this.http.get<UserDetailInterface>(this.getUserDetails + id);
   }
 
   updateUsers(user) : any {

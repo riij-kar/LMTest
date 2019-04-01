@@ -23,7 +23,7 @@ import { map, startWith } from 'rxjs/operators';
   providers: [NgbModalConfig, NgbModal]//modal
 })
 export class CountryComponent implements OnInit {
-  editingData: number[] = [];
+  editingData: boolean[] = [];
   public countries: Country[] = [];
   filter = new FormControl('');
 
@@ -70,18 +70,18 @@ export class CountryComponent implements OnInit {
   }
 
   getCountry (){
-    this.countryService.getAllCountry().subscribe(r => {
+    this.countryService.getAllCountry().subscribe((r : Country[]) => {
       this.countries = r;
       this.totalData = this.countries.length;
       
-      for (var i = 0; i <= parseInt(this.totalData / this.showingData); i++) {
+      for (var i = 0; i <= Math.ceil(this.totalData / this.showingData); i++) {
         this.pageIteration.push(i + 1);
       }
 
 
       for (var i = 0; i < this.countries.length; i++) {
         this.countries[i].isSelected = this.masterSelected;
-        this.editingData[i] = false;        
+        this.editingData[i] = false;
       }
     });
 
@@ -171,7 +171,7 @@ export class CountryComponent implements OnInit {
 
   changeMat(e){
     this.pageIteration = [];
-      for (var i = 0; i <= parseInt(this.totalData / this.showingData); i++) {
+      for (var i = 0; i <= Math.ceil(this.totalData / this.showingData); i++) {
         this.pageIteration.push(i + 1);
       }
   }

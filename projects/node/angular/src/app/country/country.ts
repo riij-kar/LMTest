@@ -58,5 +58,6 @@
         flag: string;
         regionalBlocs: RegionalBloc[];
         cioc: string;
+        isSelected: boolean;
     }
 

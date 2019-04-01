@@ -19,7 +19,7 @@ export class TableDragDirective {
   //   onClick(btn) {
   //     console.log('button', btn);
   // }
-  @Input() editingData: number[];
+  @Input() editingData: boolean[];
   @Input() editIndex;
   //@Input() c: Country;
 
