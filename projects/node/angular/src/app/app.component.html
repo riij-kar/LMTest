@@ -1,0 +1,19 @@
+  <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" routerLink="/">WebSiteName</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li [ngClass]="{'active': navpath == '/heroes'}">
+            <a routerLink="/heroes">Heroes</a>
+          </li>
+          <li [ngClass]="{'active': navpath == '/users'}">
+            <a routerLink="/users">Users</a>
+          </li>
+          <li [ngClass]="{'active': navpath == '/all_countries'}">
+            <a routerLink="/all_countries">Countries</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  <router-outlet></router-outlet>

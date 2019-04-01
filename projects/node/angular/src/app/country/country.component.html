@@ -1,0 +1,218 @@
+
+<!-- <pre>{{countries | json}}</pre> -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+        <form>
+          <div class="form-group form-inline">
+            <div style="text-align: right;">Full text search: <input class="form-control ml-2" type="text" [formControl]="filter" (keyup)="check()">
+            </div>
+            <div style="text-align: left;">
+              <button class="btn btn-danger" *ngIf="selectAnyCheckbox" (click)="confirmDeleteRow()">Remove</button>
+            </div>
+          </div>
+          <div class="form-group form-inline" *ngIf="totalData != undefined">
+              <div style="text-align: center;">
+                {{showingData}} data showing out of {{totalData}}<br>
+                <!-- <mat-select style="width: 10%;" placeholder="Select Items Per Page" name="showingData" [(ngModel)]="showingData" (selectionChange)="changeMat($event)">
+                    <mat-option *ngFor="let num of [10, 20, 30, 40, 50]" 
+                    [value]="num">{{num}}</mat-option>
+                </mat-select> -->
+                <ul class="pagination"> 
+                  <li style="cursor: pointer;"
+                  [ngClass]="{'page-item active': (pageLinkActive == pagedata), 'page-item': pageLinkActive != pagedata}"
+                  *ngFor="let pagedata of pageIteration;"
+                  (click)="pageLinkActive = pagedata;showNext(pagedata);">
+                    <a class="page-link">{{pagedata}}</a>
+                  </li>
+                </ul>
+                
+              </div>
+          </div>
+        </form>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th scope="col">
+                <mat-checkbox [(ngModel)]="masterSelected" (change)="checkUncheckAll()"></mat-checkbox>
+              </th>
+              <th scope="col">#</th>
+              <th scope="col">Country Flag</th>
+              <th scope="col">Country Code</th>
+              <th scope="col" sortable="name" (sort)="onSort($event)" appTableSort>Country Name</th>
+              <th scope="col" sortable="capital" (sort)="onSort($event)" appTableSort>Country Capital</th>
+              <th scope="col">Calling Codes</th>
+              <th scope="col">Region</th>
+              <th scope="col">Subregion</th>
+              <th scope="col" sortable="area" (sort)="onSort($event)" appTableSort>Area(Sq.Km.)</th>
+              <th scope="col">Timezones</th>
+              <th scope="col">Lats & Longs</th>
+            </tr>
+          </thead>
+          <tbody cdkDropList (cdkDropListDropped)="drop($event)">
+            <tr *ngFor="let country of countries | slice: initialData: showingData; let i = index;" cdkDrag>
+              <td>
+                <div class="draganddrop"></div>
+              </td>
+              <td scope="row">
+                <mat-checkbox [(ngModel)]="country.isSelected" (change)="isAllSelected()"></mat-checkbox>
+              </td>
+              <th scope="row">{{ i + 1 }}</th>
+              <td><img [src]="country.flag" class="img" alt="" style="width: 10%;"></td>
+
+              <td appTableDrag [editingData]="editingData" [editIndex]="i">
+                <div *ngIf="editingData[i]">
+                  <input type="text" [(ngModel)]="country.alpha2Code" class="form-control ml-2"/>
+                </div>
+
+                <div *ngIf="!editingData[i]">{{ country.alpha2Code }}</div>
+              </td>
+              <td appTableDrag [editingData]="editingData" [editIndex]="i">
+                <div *ngIf="editingData[i]">
+                  <input type="text" [(ngModel)]="country.name" class="form-control ml-2"/>
+                </div>
+    
+                <div *ngIf="!editingData[i]">
+                  <ngb-highlight [result]="country.name" [term]="filter.value"></ngb-highlight>
+                </div>
+              </td>
+              <td appTableDrag [editingData]="editingData" [editIndex]="i">
+                  
+                <div *ngIf="editingData[i]">
+                    <input type="text" [(ngModel)]="country.capital" class="form-control ml-2"/>
+                </div>
+      
+                <div *ngIf="!editingData[i]">
+                    <ngb-highlight [result]="country.capital" [term]="filter.value"></ngb-highlight>
+                </div>
+              </td>
+              <td appTableDrag [editingData]="editingData" [editIndex]="i">
+                  
+                <div *ngIf="editingData[i]">
+                    <input type="text" [(ngModel)]="country.callingCodes[0]" class="form-control ml-2"/>
+                </div>
+      
+                <div *ngIf="!editingData[i]">
+                    + <ngb-highlight [result]="country.callingCodes[0]" [term]="filter.value"></ngb-highlight>
+                </div>
+              </td>
+              <td appTableDrag [editingData]="editingData" [editIndex]="i">
+               
+                <div *ngIf="editingData[i]">
+                    <input type="text" [(ngModel)]="country.region" class="form-control ml-2"/>
+                </div>
+      
+                <div *ngIf="!editingData[i]">
+                    {{ country.region }}
+                </div>
+              </td>
+              <td appTableDrag [editingData]="editingData" [editIndex]="i">
+                <div *ngIf="editingData[i]">
+                    <input type="text" [(ngModel)]="country.subregion" class="form-control ml-2"/>
+                </div>
+      
+                <div *ngIf="!editingData[i]">
+                    {{ country.subregion }}
+                </div>
+              </td>
+              <td appTableDrag [editingData]="editingData" [editIndex]="i">
+                 
+                <div *ngIf="editingData[i]">
+                    <input type="text" [(ngModel)]="country.area" class="form-control ml-2"/>
+                </div>
+      
+                <div *ngIf="!editingData[i]">
+                    <ngb-highlight [result]="country.area | number" [term]="filter.value"></ngb-highlight>
+                </div>
+              </td>
+              <td appTableDrag [editingData]="editingData" [editIndex]="i">
+               
+                <div *ngIf="editingData[i]">
+                    <input type="text" [(ngModel)]="country.timezones[0]" class="form-control ml-2"/>
+                </div>
+      
+                <div *ngIf="!editingData[i]">
+                    {{ country.timezones[0] }}
+                </div>
+
+              </td>
+              <td  appTableDrag [editingData]="editingData" [editIndex]="i">
+                
+                <div *ngIf="editingData[i]">
+                    <input style="width: 50%;" type="text" [(ngModel)]="country.latlng[0]" class="form-control ml-2"/>
+                    <input style="width: 50%;" type="text" [(ngModel)]="country.latlng[1]" class="form-control ml-2"/>
+                </div>
+      
+                <div *ngIf="!editingData[i]">
+                    Lat: {{ country.latlng[0] }}, Lng: {{ country.latlng[1] }}
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="countries.length === 0">
+                <th scope="row"></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Loading...</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+          </tbody>
+        </table>
+
+        <!-- <table class="table table-striped" *ngIf="countries.length == 0">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Country Flag</th>
+                <th scope="col">Country Code</th>
+                <th scope="col" sortable="name">Country Name</th>
+                <th scope="col" sortable="capital">Country Capital</th>
+                <th scope="col">Calling Codes</th>
+                <th scope="col">Region</th>
+                <th scope="col">Subregion</th>
+                <th scope="col" sortable="area">Area(Sq.Km.)</th>
+                <th scope="col">Timezones</th>
+                <th scope="col">Lats & Longs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row"></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Loading...</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table> -->
+    </div>
+  </div>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Hello, World!</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+    </div>
+</ng-template>

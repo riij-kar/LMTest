@@ -1,0 +1,38 @@
+<div class="container">
+    <h2 class="pull-left">All Users</h2>
+    <h2 class="pull-right">
+    <input id="typeahead-basic" (change)="searchChange" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" placeholder="Search Users ..."/>
+    </h2>
+    <h2 class="pull-right"><a routerLink="/user/add">Add User</a></h2>
+  <div class="row">
+    <div class="col-md-12">
+        <div class="panel-group">
+          <div class="row">
+            <div class="col-md-6" *ngFor="let user of users" style="padding: 2px;">
+                <div class="panel"  [ngClass]="{'panel-success': user.isActive, 'panel-default': !user.isActive}">
+                    <div class="panel-heading">{{user.name}} ( Email : {{user.email}} )
+                        <a (click)="deleteUser(user._id)" class="btn btn-success pull-right" style="margin-left: 6px;;margin-top: -7px;">
+                          <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                        
+                        <a (click)="selectedUser(user)" class="btn btn-success pull-right" style="margin-top: -7px;" routerLink="/user/{{user._id}}">
+                          <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                    </div>
+                    <div class="panel-body">
+                        <div style="width: 100%">
+                            <img [src]="user.picture" class="img-thumbnail" alt="" style="width: 10%;">
+                        </div>
+                        
+                        <!-- <app-user-detail *ngIf="ud" [user]="ud"></app-user-detail> -->
+                    </div>
+                    <div class="panel-footer">{{user.phone}}</div>
+                  </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>    
+</div>
+
+<!-- <pre>{{users | json}}</pre> -->

@@ -1,0 +1,67 @@
+[
+    {
+      "_id": "6",
+      "isActive": true,
+      "balance": "$3,598.68",
+      "picture": "http://localhost:3000/image-upload-1552642892475.png",
+      "age": 39,
+      "name": "Fleming Shelton",
+      "gender": "male",
+      "company": "CYTREX",
+      "email": "flemingshelton@cytrex.com",
+      "phone": "+1 (959) 525-2588",
+      "address": "362 Boerum Place, Romeville, New Mexico, 5640"
+    },
+    {
+      "_id": "5",
+      "isActive": false,
+      "balance": "$789987789987",
+      "picture": "https://www.w3schools.com/w3images/avatar3.png",
+      "age": "26",
+      "name": "Rijul",
+      "gender": "male",
+      "company": "Learning mate solutions pvt ltd",
+      "email": "rijul1992.kar@gmail.com",
+      "phone": "+91 9874434094",
+      "address": "AB - 345, Sadhana Abasan, 5th Floor, Flat - 5B, Kestopur, Kolkata - 700102"
+    },
+    {
+      "_id": "4",
+      "isActive": false,
+      "balance": "$1,629.01",
+      "picture": "https://www.w3schools.com/w3images/avatar2.png",
+      "age": 23,
+      "name": "Brady Burgess",
+      "gender": "male",
+      "company": "PEARLESEX",
+      "email": "bradyburgess@pearlesex.com",
+      "phone": "+1 (968) 463-2770",
+      "address": "970 Orient Avenue, Dundee, Virginia, 9055"
+    },
+    {
+      "_id": "3",
+      "isActive": false,
+      "balance": "$1,452.54",
+      "picture": "https://www.w3schools.com/w3images/avatar6.png",
+      "age": 40,
+      "name": "Sasha Ramirez",
+      "gender": "female",
+      "company": "PARLEYNET",
+      "email": "sasharamirez@parleynet.com",
+      "phone": "+1 (802) 600-3694",
+      "address": "590 Blake Avenue, Cornucopia, Wisconsin, 5529"
+    },
+    {
+      "_id": "2",
+      "isActive": false,
+      "balance": "$2,230.03",
+      "picture": "https://www.w3schools.com/howto/img_avatar.png",
+      "age": 24,
+      "name": "Berger Mejia",
+      "gender": "male",
+      "company": "GRACKER",
+      "email": "bergermejia@gracker.com",
+      "phone": "+1 (948) 502-2369",
+      "address": "656 Church Avenue, Coral, North Carolina, 463"
+    }
+  ]

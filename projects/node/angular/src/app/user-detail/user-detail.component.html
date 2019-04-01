@@ -1,0 +1,135 @@
+<!-- <p>
+  {{userDetail?.name}}
+</p> -->
+
+<div class="example-container">
+    <h2 class="pull-left"><a (click)="this._location.back();">Back To Users</a>&nbsp;&nbsp;<br></h2>
+    <h2 *ngIf="user_id != 'add'">Details of {{userDetail?.name}}</h2>
+    <h2 *ngIf="user_id == 'add'">Add User Details</h2>
+  <div class="row">
+    <div class="col-md-12">
+        
+        <form *ngIf="editMode" class="form-inline" #userDetailForm="ngForm" (ngSubmit)="onSubmit(userDetailForm)">
+            
+          <div class="form-group" style="padding:10px 10px 10px 10px">
+            <label for="email" style="margin-right: 50px;">Name:</label>
+            
+            <mat-form-field>
+                <!-- <input matInput placeholder="Input" [(ngModel)]="inp"> -->
+                <input placeholder="Name" matInput type="text" class="form-control" #name="ngModel" name="name" [(ngModel)]="userDetail.name" required>
+            </mat-form-field>
+
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error">
+                <div *ngIf="name.errors.required">
+                        Name is required
+                </div>                
+            </div>
+
+
+          </div><br>
+
+          <div class="form-group" style="padding:10px 10px 10px 10px">
+            <label for="pwd" style="margin-right: 50px;">Age:</label>
+            <mat-form-field>
+                <input placeholder="Age" matInput type="text" class="form-control" #age="ngModel" name="age" [(ngModel)]="userDetail.age" required>
+            </mat-form-field>
+
+            <div *ngIf="age.invalid && (age.dirty || age.touched)" class="error">
+                <div *ngIf="age.errors.required">
+                        Age is required
+                </div>                
+            </div>
+            
+          </div><br>
+
+          <div class="form-group" style="padding:10px 10px 10px 10px">
+              <label for="pwd" style="margin-right: 50px;">Email:</label>
+              <input type="text" class="form-control" #email="ngModel" name="email" [(ngModel)]="userDetail.email" required>
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
+                    <div *ngIf="email.errors.required">
+                            Email is required
+                    </div>                
+                </div>
+          </div><br>
+
+          <div class="form-group" style="padding:10px 10px 10px 10px">
+              <label for="pwd" style="margin-right: 50px;">Gender: </label>
+                <!-- <mat-form-field>
+                    <mat-select placeholder="Select">
+                        <mat-option value="option">Option</mat-option>
+                    </mat-select>
+                </mat-form-field> -->
+              <mat-select style="width: 10%;" placeholder="Select Gender" name="gender" [(ngModel)]="userDetail.gender" #gen="ngModel" required>
+                  <mat-option *ngFor="let genderss of genders_array" 
+                  [value]="genderss">{{genderss}}</mat-option>
+              </mat-select>
+
+              <div *ngIf="gen.invalid && (gen.dirty || gen.touched)" class="error">
+                    <div *ngIf="gen.errors.required">
+                            Gender is required
+                    </div>                
+                </div>
+              
+          </div><br>
+
+          <div class="form-group" style="padding:10px 10px 10px 10px">
+              <label for="pwd" style="margin-right: 50px;">Company:</label>
+              <input type="text" class="form-control" #compny="ngModel" name="company" [(ngModel)]="userDetail.company" required>
+              <div *ngIf="compny.invalid && (compny.dirty || compny.touched)" class="error">
+                    <div *ngIf="compny.errors.required">
+                            company is required
+                    </div>                
+                </div>
+          </div><br>
+
+          <div class="form-group" style="padding:10px 10px 10px 10px">
+              <label for="pwd" style="margin-right: 50px;">Phone:</label>
+              <input type="text" class="form-control" #phn="ngModel" name="phone" [(ngModel)]="userDetail.phone" required>
+              <div *ngIf="phn.invalid && (phn.dirty || phn.touched)" class="error">
+                    <div *ngIf="phn.errors.required">
+                            Phone is required
+                    </div>                
+                </div>
+          </div><br>
+
+          <div class="form-group" style="padding:10px 10px 10px 10px">
+              <label for="pwd" style="margin-right: 50px;">Adress:</label>
+                <mat-form-field>
+                     <textarea matInput placeholder="Address" class="form-control" #address="ngModel" name="address" [(ngModel)]="userDetail.address" required></textarea>
+                </mat-form-field>
+
+              <div *ngIf="address.invalid && (address.dirty || address.touched)" class="error">
+                    <div *ngIf="address.errors.required">
+                            Address is required
+                    </div>                
+                </div>
+          </div><br>
+
+          <div class="form-group" style="padding:10px 10px 10px 10px">
+              <label for="pwd" style="margin-right: 50px;">Active:</label>
+              <mat-checkbox name="isActive" [(ngModel)]="userDetail.isActive"></mat-checkbox>
+          </div><br>
+
+          <div class="form-group" style="padding:10px 10px 10px 10px" appUserDetail [userDetail]="userDetail">
+              <label for="pwd" style="margin-right: 50px;">Picture(only drag and drop allowed):</label>
+              <input type="file" id="image_upload">
+              <div *ngIf="user_id != 'add'" style="width: 100%" id="avatar">
+                <img class="img-thumbnail" style="width: 10%;" [src]="userDetail.picture">
+              </div>
+          </div><br>
+
+          <div class="form-group" style="padding:10px 10px 10px 10px">
+              <label for="pwd" style="margin-right: 50px;">Balance:</label>
+              <input type="text" class="form-control" #bal="ngModel" name="balance" [(ngModel)]="userDetail.balance" required>
+              <div *ngIf="bal.invalid && (bal.dirty || bal.touched)" class="error">
+                    <div *ngIf="bal.errors.required">
+                            Balance is required
+                    </div>                
+                </div>
+          </div><br>
+          
+          <button type="submit" class="btn btn-default" [disabled]="!userDetailForm.form.valid" >Submit</button>
+        </form>
+    </div>
+  </div>    
+</div>
